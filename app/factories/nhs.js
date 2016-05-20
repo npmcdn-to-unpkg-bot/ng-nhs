@@ -6,7 +6,6 @@ const CLINICS_API = BASE_API + "clinics/partial_postcode?partial_postcode="
 const SOCIAL_CARE_API = BASE_API + "social_care_locations/partial_postcode?partial_postcode="
 const PHARMACIES_API = BASE_API + "pharmacies/partial_postcode?partial_postcode="
 const GP_SURGERIES_API = BASE_API + "gp_surgeries/partial_postcode?partial="
-const DENTAL_PRACTICES_API = BASE_API + "dental_practices/partial_postcode?partial_postcode="
 
 const nhsFactory = angular.module('app.nhsFactory', []).factory('nhsFactory', ($http,$q) => {
   
@@ -64,8 +63,6 @@ const nhsFactory = angular.module('app.nhsFactory', []).factory('nhsFactory', ($
   			return PHARMACIES_API + trimPostcode(postcode);
   		case 'gp_surgeries':
   			return GP_SURGERIES_API + trimPostcode(postcode);
-  		case 'dental_practices':
-  			return DENTAL_PRACTICES_API + trimPostcode(postcode);
   		default:
   			return HOSPITAL_API + trimPostcode(postcode);
   	}

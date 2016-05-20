@@ -10,9 +10,7 @@ export default function($scope, $log, $state, nhsFactory, GeoCoder, NavigatorGeo
 	$scope.center = [0,0]
 
 	$scope.search = () => {
-		if($scope.selected){
-			$scope.searchWithPostcode ? $scope.findPostcode() : $scope.findGeo()
-		}
+		$scope.searchWithPostcode ? $scope.findPostcode() : $scope.findGeo()
 	}
 
 	$scope.findGeo = () => {
@@ -75,12 +73,7 @@ export default function($scope, $log, $state, nhsFactory, GeoCoder, NavigatorGeo
 		  id: 5,
 		  label: 'GP Surgeries',
 		  value: 'gp_surgeries'
-		},
-		{
-		  id: 6,
-		  label: 'Dental Practices',
-		  value: 'dental_practices'
-		},
+		}
 	];
 
 	$scope.selected = $scope.types[0];
