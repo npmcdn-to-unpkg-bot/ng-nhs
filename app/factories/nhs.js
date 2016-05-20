@@ -25,13 +25,13 @@ const nhsFactory = angular.module('app.nhsFactory', []).factory('nhsFactory', ($
   }
 
   function getPositions(items){
-  	return _.map(items, (data) => {
-			return {
-				data : data,
-				lat: parseFloat(data.latitude),
-				lng: parseFloat(data.longitude)
-			}
-		})
+    return _.map(items, (data,index) => {
+      return {
+        id: index,
+        data : data,
+        pos: [parseFloat(data.latitude),parseFloat(data.longitude)]
+      }
+    })
   }
 
   function trimPostcode(postcode){

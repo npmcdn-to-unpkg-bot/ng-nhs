@@ -3,33 +3,13 @@
   <div class="main">
     <div class="row">
       <div class="col-md-3">
-        <div class="row">
-          <form name="searchForm" ng-submit="search()">
-            <div class="form-group">
-              <label for="type">Search Type</label>
-              <select class="form-control" 
-              ng-options="type as type.label for type in types track by type.id" 
-              ng-model="selected" ng-required="selected">
-              </select>
-            </div>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" ng-model="searchWithPostcode">
-                Search with postcode?
-              </label>
-            </div>
-
-            <div class="form-group" ng-show="searchWithPostcode" ng-class="{'has-error': searchForm.postcode.$invalid && searchForm.postcode.$dirty, 'has-success': searchForm.postcode.$valid && searchForm.postcode.$dirty}">
-              <label for="postcode">Postcode</label>
-              <input type="text" class="form-control" id="postcode" name="postcode" placeholder="Enter Postcode" ng-model="postcode" ng-required="searchWithPostcode" ng-pattern="regex">
-            </div>
-
-            <button type="submit" class="btn btn-default pull-right">
-              {{searchWithPostcode ? 'Search' : 'Search (Current Location)'}}
-            </button>
-          </form>
+        <div ng-if="!isDone" class="panel panel-default">
+          <div class="panel-body">
+            <h2>Welcome!</h2>
+            <p>A tool written in Angular.js which consumes the UK Goverment Health API. Begin your search by selecting a type and either using your current location or by entering a postcode.</p>
+          </div>
         </div>
-        <div class="row main" ng-show="selectedItem">
+        <div class="row" ng-show="selectedItem">
           <div class="panel panel-default">
             <div class="panel-heading"><strong>{{selectedItem.organisation_name}}</strong></div>
             <div class="panel-body">
@@ -61,22 +41,32 @@
         </div>
       </div>
       <div class="col-md-9">
-        <div map-lazy-load="https://maps.google.com/maps/api/js?key=AIzaSyBNg1Bop_0v6_VD1bNhuPpsHxBAbPF2DQc">
-          <ng-map zoom="8" center="{{center}}" zoom-to-include-markers="auto" ng-if="isDone">
+          <form name="searchForm" ng-submit="search()" class="form-inline">
+            <div class="form-group">
+              <label for="type">Search For</label>
+              <select class="form-control" 
+              ng-options="type as type.label for type in types track by type.id" 
+              ng-model="selected" ng-required="selected">
+              </select>
+            </div>
+            <div class="form-group" ng-class="{'has-error': searchForm.postcode.$invalid && searchForm.postcode.$dirty, 'has-success': searchForm.postcode.$valid && searchForm.postcode.$dirty}">
+              <label for="postcode">in</label>
+              <input type="text" class="form-control" id="postcode" name="postcode" placeholder="Enter Postcode" ng-model="postcode" ng-required="searchWithPostcode" ng-pattern="regex">
+            </div>
+
+            <button type="submit" class="btn btn-default">
+              Search
+            </button>
+          </form>
+        <div class="main" map-lazy-load="https://maps.google.com/maps/api/js?key=AIzaSyBNg1Bop_0v6_VD1bNhuPpsHxBAbPF2DQc">
+          <ng-map zoom="2" center="{{center}}" zoom-to-include-markers="auto">
             <custom-marker id="home" position="{{center}}">
               <div>
                 <h2><span class="glyphicon glyphicon-home" aria-hidden="true"></span></h2>
               </div>
             </custom-marker>
-            <marker ng-repeat="item in items" position="{{item.lat}}, {{item.lng}}" item="{{item}}"
-            on-click="selectItem()";></marker>
-          </ng-map>
-          <div ng-if="!isDone" class="panel panel-default">
-            <div class="panel-body">
-              <h2>Welcome to ng-nhs!</h2>
-              <p>A tool written in Angular.js which consumes the UK Goverment Health API. Begin your search by selecting a type and either using your current location or by entering a postcode.</p>
-            </div>
-          </div>
+            <marker ng-repeat="item in items track by $index" position="{{item.pos}}" id="{{item.id}}" on-click="selectItem(item)">
+            </ng-map>
         </div>
       </div>
     </div>
