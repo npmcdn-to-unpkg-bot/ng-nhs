@@ -1,24 +1,24 @@
 import angular from 'angular';
 import 'angular-ui-router';
 import 'ngmap';
-import mainController from 'main/main';
 import nhsFactory from 'factories/nhs';
+import main from 'components/main/main';
 import navbar from 'components/navbar/navbar';
 import info from 'components/info/info';
+import searchForm from 'components/searchForm/searchForm';
 
-const app = angular.module('app', ['ui.router','ngMap',nhsFactory.name,navbar.name,info.name]);
+const app = angular.module('app', ['ui.router','ngMap',nhsFactory.name,main.name,navbar.name,info.name,searchForm.name]);
 
 app.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
   $urlRouterProvider.otherwise('/');
   $stateProvider
     .state('main', {
       url: '/',
-      template: require('main/main.html'),
-      controller: mainController
+      template: '<main></main>'
     })
     .state('about', {
       url: '/about',
-      template: require('about/about.html')
+      template: require('components/about/about.html')
     });
     $locationProvider.html5Mode(true);
 

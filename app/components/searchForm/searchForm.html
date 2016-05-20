@@ -1,0 +1,16 @@
+<form name="searchForm" ng-submit="submit()" class="form-inline">
+  <div class="form-group">
+    <label for="type">Search for</label>
+    <select class="form-control" 
+    ng-options="type as type.label for type in types track by type.id" 
+    ng-model="selected" ng-required="true">
+    </select>
+  </div>
+  <div class="form-group" ng-class="{'has-error': searchForm.postcode.$invalid && searchForm.postcode.$dirty, 'has-success': searchForm.postcode.$valid && searchForm.postcode.$dirty}">
+    <label for="postcode">in</label>
+    <input type="text" class="form-control" id="postcode" name="postcode" placeholder="Enter Postcode" ng-model="postcode" ng-required="true" ng-pattern="regex">
+  </div>
+  <button type="submit" class="btn btn-default">
+    Search
+  </button>
+</form>

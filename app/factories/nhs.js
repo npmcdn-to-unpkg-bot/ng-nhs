@@ -15,7 +15,11 @@ const nhsFactory = angular.module('app.nhsFactory', []).factory('nhsFactory', ($
     $http.get(endpoint)
     .then(
 	    response => {
-	      deferred.resolve(getPositions(response.data.result));
+        if(response.data.result.length>0){
+	       deferred.resolve(getPositions(response.data.result));
+        } else {
+          deferred.reject(result);
+        }
 	    },
 	    error => {
 	    	deferred.reject(error);
