@@ -4,8 +4,9 @@ import 'ngmap';
 import mainController from 'main/main';
 import nhsFactory from 'factories/nhs';
 import navbar from 'components/navbar/navbar';
+import info from 'components/info/info';
 
-const app = angular.module('app', ['ui.router','ngMap',nhsFactory.name,navbar.name]);
+const app = angular.module('app', ['ui.router','ngMap',nhsFactory.name,navbar.name,info.name]);
 
 app.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
   $urlRouterProvider.otherwise('/');

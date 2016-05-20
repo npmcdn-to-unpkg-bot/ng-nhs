@@ -3,47 +3,14 @@
   <div class="main">
     <div class="row">
       <div class="col-md-3">
-        <div ng-if="!isDone" class="panel panel-default">
-          <div class="panel-body">
-            <h2>Welcome!</h2>
-            <p>A tool written in Angular.js which consumes the UK Goverment Health API. Begin your search by selecting a type and either using your current location or by entering a postcode.</p>
-          </div>
-        </div>
-        <div class="row" ng-show="selectedItem">
-          <div class="panel panel-default">
-            <div class="panel-heading"><strong>{{selectedItem.organisation_name}}</strong></div>
-            <div class="panel-body">
-              <div ng-show="selectedItem.phone">
-                <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> {{selectedItem.phone}}
-                <br>
-              </div>
-              <div ng-show="selectedItem.email">
-                <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> 
-                <a href="mailto:{{selectedItem.email}}">{{selectedItem.email}}</a>
-                <br>
-              </div>
-              <div ng-show="selectedItem.website">
-                <span class="glyphicon glyphicon-link" aria-hidden="true"></span> 
-                <a href="{{selectedItem.website}}">{{selectedItem.website}}</a>
-                <br>
-              </div>
-              <div>
-                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-                 {{selectedItem.address1}}{{selectedItem.address1 ? ',' : ''}}
-                {{selectedItem.address2}}{{selectedItem.address2 ? ',' : ''}}
-                {{selectedItem.address3}}{{selectedItem.address3 ? ',' : ''}}
-                {{selectedItem.city}}{{selectedItem.city ? ',' : ''}}
-                {{selectedItem.county}}{{selectedItem.county ? ',' : ''}}
-                {{selectedItem.postcode}}
-              </div>
-            </div>
-          </div>
+        <div class="row">
+          <info item="selectedItem"></info>
         </div>
       </div>
       <div class="col-md-9">
           <form name="searchForm" ng-submit="search()" class="form-inline">
             <div class="form-group">
-              <label for="type">Search For</label>
+              <label for="type">Search for</label>
               <select class="form-control" 
               ng-options="type as type.label for type in types track by type.id" 
               ng-model="selected" ng-required="selected">

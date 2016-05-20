@@ -1,0 +1,36 @@
+<div ng-if="!$ctrl.item" class="panel panel-default">
+  <div class="panel-body">
+    <div>
+      <h2>Welcome!</h2>
+      <p >A tool written in Angular.js which consumes the UK Goverment Health API. Begin your search by selecting a type and either using your current location or by entering a postcode. You can then Click on a marker to get the information about the location.</p>
+    </div>
+  </div>
+</div>
+<div ng-if="$ctrl.item" class="panel panel-default">
+  <div class="panel-heading"><strong>{{$ctrl.item.organisation_name}}</strong></div>
+  <div class="panel-body">
+    <div ng-show="$ctrl.item.phone">
+      <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> {{$ctrl.item.phone}}
+      <br>
+    </div>
+    <div ng-show="$ctrl.item.email">
+      <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> 
+      <a href="mailto:{{$ctrl.item.email}}">{{$ctrl.item.email}}</a>
+      <br>
+    </div>
+    <div ng-show="$ctrl.item.website">
+      <span class="glyphicon glyphicon-link" aria-hidden="true"></span> 
+      <a href="{{$ctrl.item.website}}">{{$ctrl.item.website}}</a>
+      <br>
+    </div>
+    <div>
+      <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+        {{$ctrl.item.address1}}{{$ctrl.item.address1 ? ',' : ''}}
+        {{$ctrl.item.address2}}{{$ctrl.item.address2 ? ',' : ''}}
+        {{$ctrl.item.address3}}{{$ctrl.item.address3 ? ',' : ''}}
+        {{$ctrl.item.city}}{{$ctrl.item.city ? ',' : ''}}
+        {{$ctrl.item.county}}{{$ctrl.item.county ? ',' : ''}}
+        {{$ctrl.item.postcode}}
+    </div>
+  </div>
+</div>
