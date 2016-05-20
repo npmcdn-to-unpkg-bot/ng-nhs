@@ -16,7 +16,7 @@
                 <h2><span class="glyphicon glyphicon-home" aria-hidden="true"></span></h2>
               </div>
             </custom-marker>
-            <marker ng-repeat="item in items track by $index" position="{{item.pos}}" id="{{item.id}}" on-click="selectItem(item)">
+            <marker ng-repeat="item in items track by $index" position="[{{item.latitude}},{{item.longitude}}]" on-click="selectItem(item)">
             </ng-map>
         </div>
       </div>

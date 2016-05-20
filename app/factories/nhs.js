@@ -7,7 +7,7 @@ const SOCIAL_CARE_API = BASE_API + "social_care_locations/partial_postcode?parti
 const PHARMACIES_API = BASE_API + "pharmacies/partial_postcode?partial_postcode="
 const GP_SURGERIES_API = BASE_API + "gp_surgeries/partial_postcode?partial="
 
-const nhsFactory = angular.module('app.nhsFactory', []).factory('nhsFactory', ($http,$q) => {
+const nhsFactory = angular.module('app.nhsFactory', []).factory('nhsFactory', ($http,$q,$log) => {
   
   function get(postcode,type) {
   	var deferred = $q.defer();
@@ -16,9 +16,9 @@ const nhsFactory = angular.module('app.nhsFactory', []).factory('nhsFactory', ($
     .then(
 	    response => {
         if(response.data.result.length>0){
-	       deferred.resolve(getPositions(response.data.result));
+	       deferred.resolve(response.data.result);
         } else {
-          deferred.reject(result);
+          deferred.reject({error: 'No results for that postode!'});
         }
 	    },
 	    error => {
@@ -26,16 +26,6 @@ const nhsFactory = angular.module('app.nhsFactory', []).factory('nhsFactory', ($
 	    }
     );
     return deferred.promise;
-  }
-
-  function getPositions(items){
-    return _.map(items, (data,index) => {
-      return {
-        id: index,
-        data : data,
-        pos: [parseFloat(data.latitude),parseFloat(data.longitude)]
-      }
-    })
   }
 
   function trimPostcode(postcode){

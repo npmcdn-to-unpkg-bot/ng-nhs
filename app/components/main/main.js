@@ -1,11 +1,11 @@
 import _ from 'lodash'
 
-var controller = ($scope, nhsFactory, GeoCoder, NavigatorGeolocation) => {
+var controller = ($scope, toastr, nhsFactory, GeoCoder, NavigatorGeolocation, $log) => {
 
 	$scope.center = [51.5074,-0.1278]
 
 	$scope.selectItem = (event, item) => {
-		$scope.selectedItem = item.data;
+		$scope.selectedItem = item;
 	}
 
 	$scope.search = (postcode,selected) => {
@@ -14,9 +14,10 @@ var controller = ($scope, nhsFactory, GeoCoder, NavigatorGeolocation) => {
 	    nhsFactory.get(postcode, selected.value)
 			.then(result => {
 				$scope.items = result;
+				toastr.success('Returned ' + result.length + ' result(s)', 'Success');
 			}
 			, error => {
-				$scope.error = error;
+				toastr.error(error.error, 'Error');
 			})
 	  });
 	}
